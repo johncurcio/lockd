@@ -2,8 +2,10 @@ import React from 'react';
 import { 
   Grid,
   Input,
-  Message
+  Message,
+  Icon
 } from 'semantic-ui-react';
+import Share from './Share';
 import axios from 'axios';
 
 class Shortener extends React.Component {
@@ -34,11 +36,16 @@ class Shortener extends React.Component {
     this.setState({ shortUrl: "" });
   }
 
-  MessageF(){
+  renderMessage(){
   	if (this.state.shortUrl !== "") {
       return (
       	<Message onDismiss={this.handleDismiss} size='small'>
-      		Your secure short url is ready: <a href = {'https://'+this.state.shortUrl}>{this.state.shortUrl}</a>
+      		<span className="spaced">
+      			Your secure short url is ready: <a href = {'https://'+this.state.shortUrl}>{this.state.shortUrl}</a>
+      		</span>
+      		<span>	     
+      			<Share url={'https://'+this.state.shortUrl} size={20} />
+      		</span>
       	</Message>
       )
     }
@@ -59,8 +66,8 @@ class Shortener extends React.Component {
 			    </Grid.Column>
 		    </Grid.Row>
 		    <Grid.Row>
-		    	<Grid.Column style={{ maxWidth: 750 }}>
-		    		{ this.MessageF() }
+		    	<Grid.Column style={{ maxWidth: 750, textAlign: 'left' }}>
+		    		{ this.renderMessage() }
 		    	</Grid.Column>
 		    </Grid.Row>
 		  </Grid>

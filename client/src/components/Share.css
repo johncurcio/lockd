@@ -1,0 +1,15 @@
+.shareButton {
+  cursor: pointer;
+}
+
+.shareButton:hover:not(:active) {
+  opacity: 0.75;
+}
+
+.network {
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 5px;
+  text-align: right;
+}
+
