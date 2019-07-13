@@ -23,7 +23,7 @@ module.exports = app => {
 
 	app.post('/api/shorten', async (request, response) => {
 		const { originalUrl } = request.body;
-
+		console.log(request.body);
 		if (validator.isURL(originalUrl)){
 			const domainUrl = constants.DEFAULT_DOMAIN;
 			// TODO: add a cache and a KGS

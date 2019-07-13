@@ -10,6 +10,27 @@ a:hover {
   color: pink;
 }
 
+.anchor{
+	background:none;
+    color: hotpink;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    /*border is optional*/
+    border-bottom:none; 
+    cursor: pointer;
+}
+
+.anchor:hover,
+.anchor:visited {
+  color: pink;
+}
+
+.anchor:focus {
+	outline:0;
+}
+
+
 .ui.footer.form-page {
   position: absolute;
   bottom: 0;
