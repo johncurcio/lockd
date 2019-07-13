@@ -47,6 +47,7 @@ class Shortener extends React.Component {
                 size='huge'
                 action={{ color: 'pink', content: 'make it short', onClick: () => this.handleClick() }} 
                 placeholder='Paste URL to shorten' />
+            <a>advanced options...</a>
           </Grid.Column>
         </Grid.Row>
 

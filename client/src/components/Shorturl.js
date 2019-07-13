@@ -7,10 +7,10 @@ import Share from './Share';
 
 class Shorturl extends React.Component {
 
-	render(){
-		return (
-		  <Transition visible={this.props.visible} animation='slide down' duration={100}>
-        <Message onDismiss={this.props.handleDismiss} size='small'>
+  render(){
+    return (
+      <Transition visible={this.props.visible} animation='slide down' duration={100}>
+        <Message color='olive' onDismiss={this.props.handleDismiss} size='small'>
           <span className='spaced'>
             Your secure short url is ready: <a href={'https://' + this.props.shortUrl}>{this.props.shortUrl}</a>
           </span>
@@ -19,8 +19,8 @@ class Shorturl extends React.Component {
           </span>
         </Message>
       </Transition>
-		);
-	}
+    );
+  }
 
 }
 
