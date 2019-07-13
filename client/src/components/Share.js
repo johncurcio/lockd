@@ -1,7 +1,4 @@
 import React from 'react';
-import { 
-  Grid
-} from 'semantic-ui-react';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -44,7 +41,7 @@ class Share extends React.Component {
             <RedditIcon size={this.props.size || 16} />
           </RedditShareButton>
         </span>
-        
+
         <span className="network">
           <LinkedinShareButton url={this.props.url} className="shareButton">
             <LinkedinIcon size={this.props.size || 16} />
