@@ -3,7 +3,23 @@ const shortener = mongoose.model('shortener');
 const constants = require('../constants');
 const validator = require('validator');
 
+function getShortUrl(domainUrl, code, alias){
+	if (alias || alias !== ""){
+		return domainUrl + alias;
+	} else {
+		return domainUrl + code;
+	}
+}
+
 module.exports = app => {
+
+	app.get('/:code', async (request, response) => {
+		const urlCode = request.params.code;
+		const item = await shortener.findOne({ _id: urlCode });
+		if (item) {
+			return response.redirect(item.originalUrl);
+		}
+	});
 
 	app.post('/api/shorten', async (request, response) => {
 		const { originalUrl } = request.body;
@@ -12,7 +28,6 @@ module.exports = app => {
 			const domainUrl = constants.DEFAULT_DOMAIN;
 			// TODO: add a cache and a KGS
 			// TODO: add error handling and authentication
-			// TODO: redirect url
 
 			let shortUrl = await shortener.findOne({ originalUrl }).exec();
 
