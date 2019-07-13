@@ -3,7 +3,8 @@ import {
   Grid,
   Input,
   Message,
-  Icon
+  Icon,
+  Transition
 } from 'semantic-ui-react';
 import Share from './Share';
 import axios from 'axios';
@@ -37,8 +38,9 @@ class Shortener extends React.Component {
   }
 
   renderMessage(){
-  	if (this.state.shortUrl !== "") {
-      return (
+  	let visible = (this.state.shortUrl !== "");
+    return (
+    	<Transition visible={visible} animation='slide down' duration={100}>
       	<Message onDismiss={this.handleDismiss} size='small'>
       		<span className="spaced">
       			Your secure short url is ready: <a href = {'https://'+this.state.shortUrl}>{this.state.shortUrl}</a>
@@ -47,8 +49,8 @@ class Shortener extends React.Component {
       			<Share url={'https://'+this.state.shortUrl} size={20} />
       		</span>
       	</Message>
-      )
-    }
+     	</Transition>
+    )
   }
 
 	render(){
