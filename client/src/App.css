@@ -1,0 +1,18 @@
+.App {
+  padding-top: 3em; 
+}
+
+a {
+  color: hotpink;
+}
+
+a:hover {
+  color: pink;
+}
+
+.ui.footer.form-page {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
