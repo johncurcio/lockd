@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Header content='LOCKD' subheader='Secure url shortener' icon='lock' color = 'pink'/>
+        <Header content='LOCKD' subheader='Slightly Secure Shortener' icon='lock' color = 'pink'/>
         <Shortener />
       </Container>
       <Footer />

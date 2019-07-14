@@ -3,7 +3,6 @@ const shortid = require('shortid');
 
 var { Schema } = mongoose;
 
-// short url will be domainURL + _id
 var shortenerSchema = new Schema({
 	_id: { type: String, default: shortid.generate },
 	originalUrl: String,

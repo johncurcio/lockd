@@ -3,17 +3,47 @@ const shortener = mongoose.model('shortener');
 const constants = require('../constants');
 const validator = require('validator');
 
-function getShortUrl(domainUrl, code, alias){
-	if (alias || alias !== ""){
-		return domainUrl + alias;
+async function createShortUrl(response, originalUrl, domainUrl, error){
+	let shortUrl = await shortener.findOne({ originalUrl }).exec();
+
+	if (shortUrl){
+		response.status(200).json({
+			url: shortUrl.domainUrl + shortUrl._id,
+			error: error
+		}); // returns the short url in database
 	} else {
-		return domainUrl + code;
+		let updatedAt = Date.now();
+		let item = new shortener({ originalUrl, domainUrl, updatedAt });
+		await item.save();
+		response.status(200).json( { 
+			url: item.domainUrl + item._id,
+			error: error
+		});
+	}
+}
+
+async function createUrlWithAlias(response, originalUrl, domainUrl, alias){
+	let shortUrl = await shortener.findOne({ _id: alias }).exec();
+
+	if (alias === ""){
+		createShortUrl(response, originalUrl, domainUrl, '');
+	} else if (shortUrl){
+		createShortUrl(response, originalUrl, domainUrl, 'The alias is already in use. We generated a random url instead!');
+	} else {
+		let updatedAt = Date.now();
+		let item = new shortener({ originalUrl, domainUrl, updatedAt, _id: alias });
+		await item.save();
+		response.status(200).json( {
+			url: item.domainUrl + item._id,
+			error: "" 
+		});
 	}
 }
 
 module.exports = app => {
 
 	app.get('/:code', async (request, response) => {
+		// TODO: authentication
 		const urlCode = request.params.code;
 		const item = await shortener.findOne({ _id: urlCode });
 		if (item) {
@@ -22,23 +52,11 @@ module.exports = app => {
 	});
 
 	app.post('/api/shorten', async (request, response) => {
-		const { originalUrl } = request.body;
-		console.log(request.body);
+		const { originalUrl, alias, password } = request.body;
+
 		if (validator.isURL(originalUrl)){
 			const domainUrl = constants.DEFAULT_DOMAIN;
-			// TODO: add a cache and a KGS
-			// TODO: add error handling and authentication
-
-			let shortUrl = await shortener.findOne({ originalUrl }).exec();
-
-			if (shortUrl){
-				response.status(200).json(shortUrl.domainUrl + shortUrl._id); // returns the short url in database
-			} else {
-				let updatedAt = Date.now();
-				let item = new shortener({ originalUrl, domainUrl, updatedAt });
-				await item.save();
-				response.status(200).json(item.domainUrl + item._id);
-			}
+			createUrlWithAlias(response, originalUrl, domainUrl, alias);
 		}else{
 			response.status(422).json({ error: 'Invalid url' });
 		}

@@ -4,6 +4,7 @@ import {
   Input,
   Segment,
   Transition,
+  Message,
   Popup
 } from 'semantic-ui-react';
 import Shorturl from './Shorturl';
@@ -19,6 +20,7 @@ class Shortener extends React.Component {
       shortUrl: "",
       alias: "",
       password: "",
+      error: "",
       visible: false
     };
 
@@ -34,7 +36,7 @@ class Shortener extends React.Component {
     axios.post('/api/shorten', request)
          .then( res => {
             console.log(res);
-            this.setState({ shortUrl: res.data });
+            this.setState({ shortUrl: res.data.url, error: res.data.error });
           })
          .catch( error => {
             console.log("Could not short url!");
@@ -57,9 +59,8 @@ class Shortener extends React.Component {
     let lockd = 'https://lockd.dev/';
 
     return (
-      <Grid textAlign='center' verticalAlign='middle'>
-      
-        <Grid.Row style={{ paddingTop: '25vh' }}>
+      <Grid textAlign='center' verticalAlign='middle' style={{ paddingTop: '25vh' }}>
+        <Grid.Row>
           <Grid.Column style={{ maxWidth: 750 }}>
             <Input
                 defaultValue={this.state.originalUrl}
