@@ -7,6 +7,6 @@ module.exports = {
 		poolSize: 10
 	},
 //	DEFAULT_DOMAIN: 'https://lockd.dev/',
-	DEFAULT_DOMAIN: 'http://localhost:7000/',
+	DEFAULT_DOMAIN: 'http://localhost/',
 	REDIS_URL: 'redis://127.0.0.1:6379',
 }
