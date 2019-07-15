@@ -19,7 +19,7 @@ class Shortener extends React.Component {
       originalUrl: "",
       shortUrl: "",
       alias: "",
-      password: "",
+      lock: "",
       error: "",
       visible: false
     };
@@ -71,9 +71,8 @@ class Shortener extends React.Component {
                 action={{ color: 'pink', content: 'make it short', onClick: () => this.handleClick() }} 
                 placeholder='Paste URL to shorten' />
 
-            <button className="anchor" onClick={this.toggle} >more options...</button>
 
-            <Transition visible={this.state.visible} animation='slide down' duration={200}>
+            <Transition visible={true} animation='slide down' duration={200}>
               <Segment vertical>
                 <Segment.Inline>
                   <Grid textAlign='left' columns={2} divided>
@@ -86,19 +85,19 @@ class Shortener extends React.Component {
                                 label={lockd} 
                                 size='mini' 
                                 onChange={this.handleInputChange}
-                                placeholder='alias' />
+                                placeholder='alias (optional)' />
                         } />
                       </Grid.Column>
                       <Grid.Column>
-                        <Popup position='bottom left' content='Add a password to protect your url' trigger={
-                          <Input defaultValue={this.state.password} 
+                        <Popup position='bottom left' content='Add a lock number to protect your url' trigger={
+                          <Input defaultValue={this.state.lock} 
                                 fluid 
-                                name="password"
+                                name="lock"
                                 type='password' 
                                 size='mini' 
                                 icon='lock' 
                                 onChange={this.handleInputChange}
-                                placeholder='Set up a password' />
+                                placeholder='Set up a lock number (optional)' />
                         } />
                       </Grid.Column>
                     </Grid.Row>
@@ -112,7 +111,10 @@ class Shortener extends React.Component {
 
         <Grid.Row>
           <Grid.Column style={{ maxWidth: 750, textAlign: 'left' }}>
-            <Shorturl visible={this.state.shortUrl !== ""} handleDismiss={this.handleDismiss} shortUrl={this.state.shortUrl} />
+            <Shorturl 
+              visible={this.state.shortUrl !== ""} 
+              handleDismiss={this.handleDismiss} 
+              shortUrl={this.state.shortUrl} />
           </Grid.Column>
         </Grid.Row>
       

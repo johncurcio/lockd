@@ -10,7 +10,7 @@ async function createShortUrl(response, originalUrl, domainUrl, error){
 		response.status(200).json({
 			url: shortUrl.domainUrl + shortUrl._id,
 			error: error
-		}); // returns the short url in database
+		});
 	} else {
 		let updatedAt = Date.now();
 		let item = new shortener({ originalUrl, domainUrl, updatedAt });
@@ -42,7 +42,7 @@ async function createUrlWithAlias(response, originalUrl, domainUrl, alias){
 
 module.exports = app => {
 
-	app.get('/:code', async (request, response) => {
+	app.get('/api/:code', async (request, response) => {
 		// TODO: authentication
 		const urlCode = request.params.code;
 		const item = await shortener.findOne({ _id: urlCode });
