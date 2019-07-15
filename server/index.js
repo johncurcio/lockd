@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const constants = require('./constants');
+const morgan = require('morgan')
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(constants.MONGO_URI, constants.MONGO_OPTIONS);
@@ -11,6 +13,7 @@ mongoose.connect(constants.MONGO_URI, constants.MONGO_OPTIONS);
 require('./models/shortener');
 
 app.use(bodyParser.json());
+app.use(morgan('combined'))
 app.use(helmet());
 
 require('./routes/api')(app);
