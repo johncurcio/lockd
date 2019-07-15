@@ -3,17 +3,17 @@ const shortener = mongoose.model('shortener');
 const constants = require('../constants');
 const validator = require('validator');
 
-async function createShortUrl(response, originalUrl, domainUrl, error){
+async function createShortUrl(response, originalUrl, domainUrl, lock, error){
 	let shortUrl = await shortener.findOne({ originalUrl }).exec();
 
-	if (shortUrl){
+	if (shortUrl && lock === ""){ // if there's a lock, then create a new short url 
 		response.status(200).json({
 			url: shortUrl.domainUrl + shortUrl._id,
 			error: error
 		});
 	} else {
 		let updatedAt = Date.now();
-		let item = new shortener({ originalUrl, domainUrl, updatedAt });
+		let item = new shortener({ originalUrl, domainUrl, updatedAt, lock });
 		await item.save();
 		response.status(200).json( { 
 			url: item.domainUrl + item._id,
@@ -22,16 +22,16 @@ async function createShortUrl(response, originalUrl, domainUrl, error){
 	}
 }
 
-async function createUrlWithAlias(response, originalUrl, domainUrl, alias){
+async function createUrlWithAlias(response, originalUrl, domainUrl, alias, lock){
 	let shortUrl = await shortener.findOne({ _id: alias }).exec();
 
 	if (alias === ""){
-		createShortUrl(response, originalUrl, domainUrl, '');
+		createShortUrl(response, originalUrl, domainUrl, lock, '');
 	} else if (shortUrl){
-		createShortUrl(response, originalUrl, domainUrl, 'The alias is already in use. We generated a random url instead!');
+		createShortUrl(response, originalUrl, domainUrl, lock, 'The alias is already in use. We generated a random url instead!');
 	} else {
 		let updatedAt = Date.now();
-		let item = new shortener({ originalUrl, domainUrl, updatedAt, _id: alias });
+		let item = new shortener({ originalUrl, domainUrl, updatedAt, _id: alias, lock });
 		await item.save();
 		response.status(200).json( {
 			url: item.domainUrl + item._id,
@@ -43,20 +43,27 @@ async function createUrlWithAlias(response, originalUrl, domainUrl, alias){
 module.exports = app => {
 
 	app.get('/api/:code', async (request, response) => {
-		// TODO: authentication
 		const urlCode = request.params.code;
 		const item = await shortener.findOne({ _id: urlCode });
 		if (item) {
-			return response.redirect(item.originalUrl);
+			if (item.lock && item.lock != ""){
+				const lock = request.query.lock;
+				if (lock === item.lock) 
+					return response.redirect(item.originalUrl);
+				else 
+					return response.send("HTTP 401 Unauthorized"); //Unauthorized
+			} else {
+				return response.redirect(item.originalUrl);
+			}
 		}
 	});
 
 	app.post('/api/shorten', async (request, response) => {
-		const { originalUrl, alias, password } = request.body;
+		const { originalUrl, alias, lock } = request.body;
 
 		if (validator.isURL(originalUrl)){
 			const domainUrl = constants.DEFAULT_DOMAIN;
-			createUrlWithAlias(response, originalUrl, domainUrl, alias);
+			createUrlWithAlias(response, originalUrl, domainUrl, alias, lock);
 		}else{
 			response.status(422).json({ error: 'Invalid url' });
 		}

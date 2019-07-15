@@ -7,6 +7,7 @@ var shortenerSchema = new Schema({
 	_id: { type: String, default: shortid.generate },
 	originalUrl: String,
 	domainUrl:   String,
+	lock:        String,
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now }
 });
