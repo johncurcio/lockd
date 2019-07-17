@@ -28,7 +28,7 @@ async function createUrlWithAlias(response, originalUrl, domainUrl, alias, lock)
 	if (alias === ""){
 		createShortUrl(response, originalUrl, domainUrl, lock, '');
 	} else if (shortUrl){
-		createShortUrl(response, originalUrl, domainUrl, lock, 'The alias is already in use. We generated a random url instead!');
+		createShortUrl(response, originalUrl, domainUrl, lock, 'The alias is already in use. We generated a random url instead:');
 	} else {
 		let updatedAt = Date.now();
 		let item = new shortener({ originalUrl, domainUrl, updatedAt, _id: alias, lock });

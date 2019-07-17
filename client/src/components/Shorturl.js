@@ -18,7 +18,7 @@ class Shorturl extends React.Component {
         <Message color='olive' onDismiss={this.props.handleDismiss} size='small'>
           <span className='spaced'>
             <Icon name='lock'/> 
-            Your secure short url is ready: <a href={this.props.shortUrl}>{this.removeHttp(this.props.shortUrl)}</a>
+            {this.props.message} <a href={this.props.shortUrl}>{this.removeHttp(this.props.shortUrl)}</a>
           </span>
           <span>       
             <Share url={this.props.shortUrl} size={20} />
