@@ -6,6 +6,7 @@ import {
 } from 'semantic-ui-react';
 import Shorturl from './Shorturl';
 import axios from 'axios';
+import copy from "clipboard-copy";
 
 class Shortener extends React.Component {
   
@@ -32,8 +33,8 @@ class Shortener extends React.Component {
 
     axios.post('/api/shorten', request)
          .then( res => {
-            console.log(res);
             this.setState({ shortUrl: res.data.url, error: res.data.error });
+            copy(res.data.url);
           })
          .catch( error => {
             console.log("Could not short url!");
@@ -76,7 +77,6 @@ class Shortener extends React.Component {
                 placeholder='Paste URL to shorten' 
                 />
             
- 
             <Grid textAlign='left' columns={2}  style={{ paddingTop: '2vh', paddingBottom: '2vh' }} divided>
               <Grid.Row> 
                 <Grid.Column>
