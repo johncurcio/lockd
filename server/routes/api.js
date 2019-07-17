@@ -42,16 +42,26 @@ async function createUrlWithAlias(response, originalUrl, domainUrl, alias, lock)
 
 module.exports = app => {
 
+	app.post('/api/auth', async (request, response) => {
+		const { urlCode, lock } = request.body;
+		const item = await shortener.findOne({ _id: urlCode });
+		if (item){
+			item.authorize(lock, function(err, isMatch) {
+		        console.log(item.lock);
+		        if (isMatch) 
+		        	response.status(202).json({ url: item.originalUrl });
+		        else 
+		        	response.status(401).json({ error: "Unauthorized redirection!" });
+		    });
+		}
+	});
+
 	app.get('/api/:code', async (request, response) => {
 		const urlCode = request.params.code;
 		const item = await shortener.findOne({ _id: urlCode });
 		if (item) {
 			if (item.lock && item.lock != ""){
-				const lock = request.query.lock;
-				if (lock === item.lock) 
-					return response.redirect(item.originalUrl);
-				else 
-					return response.send("HTTP 401 Unauthorized"); //Unauthorized
+				return response.redirect("http://localhost:3000/" + urlCode + "/auth"); // explicit!
 			} else {
 				return response.redirect(item.originalUrl);
 			}
