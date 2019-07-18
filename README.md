@@ -1,4 +1,4 @@
-![LOCKD](_docs/logo)
+![LOCKD](_docs/logo.png)
 
 Lockd is a slightly secure url shortener which allows you to protect your url with a lock number, making them effectively private. 
 
