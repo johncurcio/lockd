@@ -4,7 +4,7 @@ const constants = require('../constants');
 const validator = require('validator');
 
 async function createShortUrl(response, originalUrl, domainUrl, lock, error){
-	let shortUrl = await shortener.findOne({ originalUrl }).exec();
+	let shortUrl = await shortener.findOne({ originalUrl, lock: "" }).exec();
 
 	if (shortUrl && lock === ""){ // if there's a lock, then create a new short url 
 		response.status(200).json({
@@ -49,7 +49,7 @@ module.exports = app => {
 			item.authorize(lock, function(err, isMatch) {
 		        console.log(item.lock);
 		        if (isMatch) 
-		        	response.status(202).json({ url: item.originalUrl });
+		        	response.status(202).json({ url: item.originalUrl, error: "" });
 		        else 
 		        	response.status(401).json({ error: "Unauthorized redirection!" });
 		    });
