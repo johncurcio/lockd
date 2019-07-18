@@ -11,7 +11,7 @@ class Header extends React.Component {
       <SemanticHeader as='h1' color = {this.props.color}>
         <Icon name={this.props.icon} color = {this.props.color}/>
           <SemanticHeader.Content>
-            { this.props.content }
+            <span className="biko">{ this.props.content }</span>
             <SemanticHeader.Subheader>{ this.props.subheader }</SemanticHeader.Subheader>
           </SemanticHeader.Content>
       </SemanticHeader>

@@ -1,3 +1,14 @@
+@font-face {
+  font-family: "Biko_Bold";
+  src:  url("Biko_Bold.otf") format("opentype");
+}
+
+.biko{
+  font-family: 'Biko_Bold', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
 .App {
   padding-top: 3em; 
 }
@@ -12,13 +23,13 @@ a:hover {
 
 .anchor{
 	background:none;
-    color: hotpink;
-    border:none; 
-    padding:0!important;
-    font: inherit;
-    /*border is optional*/
-    border-bottom:none; 
-    cursor: pointer;
+  color: hotpink;
+  border:none; 
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  border-bottom:none; 
+  cursor: pointer;
 }
 
 .anchor:hover,
