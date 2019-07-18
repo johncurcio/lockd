@@ -8,14 +8,15 @@ Lockd is a slightly secure url shortener which allows you to protect your url wi
 
 ## Backend
 
-* Nginx - for url redirections and load balancing
-* Express - Nodejs framework for building the RESTful API
-* Mongodb - NoSQL database
+* [Nodejs](https://nodejs.org/en/) - JavaScript runtime built on Chrome's V8 JavaScript engine.
+* [Nginx](https://www.nginx.com/) - for url redirections and load balancing
+* [Express](https://expressjs.com/) - Nodejs framework for building the RESTful API
+* [Mongodb](https://www.mongodb.com/) - NoSQL database for rapid prototyping
 
 ## Frontend
 
-* ReactJS - JavaScript library for building user interfaces.
-* Semantic-UI - Responsive frontend framework for reactjs
+* [ReactJS](https://www.mongodb.com/) - JavaScript library for building user interfaces.
+* [Semantic-UI](https://react.semantic-ui.com/) - Responsive frontend framework for reactjs
 
 # Using the project
 
@@ -35,3 +36,7 @@ $ cd /server && npm install
 $ cd /client && npm start
 $ cd /server && npm start
 ```
+
+# About me
+
+Check out [curcio.dev](https://curcio.dev)
