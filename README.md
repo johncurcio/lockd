@@ -8,4 +8,4 @@
 
 # Demo
 
-![demo-gif](https://j.gifs.com/vlmXp8.gif)
+![demo-gif](_docs/demo.gif)
