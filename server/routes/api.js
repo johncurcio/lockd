@@ -58,10 +58,12 @@ module.exports = app => {
 
 	app.get('/api/:code', async (request, response) => {
 		const urlCode = request.params.code;
+		let frontendUrl = request.headers.referer;
+		console.log(request.headers);
 		const item = await shortener.findOne({ _id: urlCode });
 		if (item) {
 			if (item.lock && item.lock != ""){
-				return response.redirect("http://localhost:3000/" + urlCode + "/auth"); // explicit!
+				return response.redirect(frontendUrl + urlCode + "/auth"); // explicit!
 			} else {
 				return response.redirect(item.originalUrl);
 			}

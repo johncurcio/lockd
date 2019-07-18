@@ -88,7 +88,9 @@ class Shortener extends React.Component {
                           size='mini' 
                           error={this.state.error !== ""}
                           onChange={this.handleInputChange}
-                          placeholder='alias (optional)' />
+                          placeholder='alias (optional)' 
+                          maxLength="34" />
+                    
                   } />
                 </Grid.Column>
                 <Grid.Column>
