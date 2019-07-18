@@ -1,6 +1,8 @@
-# LOCKD
+![LOCKD](_docs/logo)
 
 Lockd is a slightly secure url shortener which allows you to protect your url with a lock number, making them effectively private. 
+
+![demo-gif](_docs/demo.gif)
 
 # Dependencies
 
@@ -33,7 +35,3 @@ $ cd /server && npm install
 $ cd /client && npm start
 $ cd /server && npm start
 ```
-
-# Demo
-
-![demo-gif](_docs/demo.gif)
